@@ -77,7 +77,7 @@ jobs:
       - name: Register new task definition revision
         id: task-def
         run: |
-          ls
+          cat config/task-definition.json
           export TASK_DEFINITION=$(cat config/task-definition.json)
           export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }}" '.taskDefinition | .containerDefinitions[0].image = $IMAGE')
           echo $UPDATED_TASK_DEFINITION > new-task-def.json
