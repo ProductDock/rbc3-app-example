@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - master
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
