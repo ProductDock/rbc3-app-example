@@ -3,13 +3,13 @@
     "containerDefinitions": [
         {
             "name": "rbc-lib",
-            "image": "docker.io/nginx:latest",
+            "image": "will-be-replaced-by-cicd",
             "cpu": 512,
             "memory": 512,
             "portMappings": [
                 {
                     "name": "rbc-lib",
-                    "containerPort": 80,
+                    "containerPort": 8080,
                     "hostPort": 80,
                     "protocol": "tcp"
                 }
