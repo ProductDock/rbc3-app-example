@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feat/cicd
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
@@ -47,7 +48,12 @@ jobs:
 
       - name: Extract Git commit SHA
         id: git-info
-        run: echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        run: |
+          echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "COMMIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        outputs:
+          commit_sha: ${{ steps.git-info.outputs.COMMIT_SHA }}
+
 
       - name: Build Docker image
         run: |
@@ -78,8 +84,9 @@ jobs:
         id: task-def
         run: |
           set -x
+          SHA="${{ needs.build.outputs.commit_sha }}"
           export TASK_DEFINITION=$(cat config/task-definition.json)
-          export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:${{ env.COMMIT_SHA }}" '.taskDefinition | .containerDefinitions[0].image = $IMAGE')
+          export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA" '.taskDefinition | .containerDefinitions[0].image = $IMAGE')
           echo $UPDATED_TASK_DEFINITION > new-task-def.json
           cat new-task-def.json
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
