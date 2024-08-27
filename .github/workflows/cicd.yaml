@@ -83,7 +83,7 @@ jobs:
         run: |
           SHA="${{ needs.build.outputs.commit_sha }}"
           export TASK_DEFINITION=$(cat config/task-definition.json)
-          export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "docker.io/nginx:latest" '.containerDefinitions[0].image = $IMAGE')
+          export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA" '.containerDefinitions[0].image = $IMAGE')
           echo $UPDATED_TASK_DEFINITION > new-task-def.json
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
