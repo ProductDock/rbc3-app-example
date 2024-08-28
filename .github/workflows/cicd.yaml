@@ -65,7 +65,7 @@ jobs:
     outputs:
       commit_sha: ${{ steps.git-info.outputs.COMMIT_SHA }}
 
-  deploy:
+  deploy_nonprod:
     needs: build
     runs-on: ubuntu-latest
 

@@ -8,18 +8,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class RestController {
     
-	private static Logger LOG = LoggerFactory
+    private static Logger LOG = LoggerFactory
 			.getLogger(RestController.class);
+
+    @Autowired
+    private TestDocumentService testDocumentService;
 
     @GetMapping("health")
     public ResponseEntity<String> ping() {
         return new ResponseEntity<>("Hello RBC 3!", HttpStatus.OK);
     }
 
+    @GetMapping("save")
+    public ResponseEntity<String> saveDocument(@RequestParam String message) {
+        testDocumentService.saveTestDocument(message);
+        return new ResponseEntity<>("Document saved!", HttpStatus.OK);
+    }
+
+    @GetMapping("find")
+    public TestDocument findDocument(@RequestParam String id) {
+        return testDocumentService.getTestDocument(id);
+    }
     @GetMapping("count")
     public ResponseEntity<Void> count() {
         countAsync();
