@@ -17,7 +17,7 @@ public class RestController {
 
     @GetMapping("health")
     public ResponseEntity<String> ping() {
-        return new ResponseEntity<>("Hello RBC 3!!", HttpStatus.OK);
+        return new ResponseEntity<>("Hello RBC 3!", HttpStatus.OK);
     }
 
     @GetMapping("count")
