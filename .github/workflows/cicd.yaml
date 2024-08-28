@@ -86,9 +86,9 @@ jobs:
           export TASK_DEFINITION=$(cat config/task-definition.json)
           export UPDATED_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq \
             --arg IMAGE "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.APPLICATION_NAME }}:$SHA" \
-            --arg MONGO_PASSWORD "${{ secrets.MONGO_PASSWORD }}" \
+            --arg DOCUMENTDB_PASSWORD "${{ secrets.DOCUMENTDB_PASSWORD }}" \
             --arg DOCUMENTDB_DATABASE "$DOCUMENTDB_DATABASE" \
-            '.containerDefinitions[0].environment += [{"name": "MONGO_PASSWORD", "value": $MONGO_PASSWORD}] | .containerDefinitions[0].environment += [{"name": "DOCUMENTDB_DATABASE", "value": $DOCUMENTDB_DATABASE}] | .containerDefinitions[0].image = $IMAGE')
+            '.containerDefinitions[0].environment += [{"name": "DOCUMENTDB_PASSWORD", "value": $DOCUMENTDB_PASSWORD}] | .containerDefinitions[0].environment += [{"name": "DOCUMENTDB_DATABASE", "value": $DOCUMENTDB_DATABASE}] | .containerDefinitions[0].image = $IMAGE')
           echo $UPDATED_TASK_DEFINITION > new-task-def.json
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 

@@ -12,7 +12,7 @@ public class TestDocumentController {
     private TestDocumentService testDocumentService;
 
     @GetMapping("save")
-    public String saveDocument(@RequestParam String message) {
+    public ResponseEntity<String> saveDocument(@RequestParam String message) {
         testDocumentService.saveTestDocument(message);
         return new ResponseEntity<>("Document saved!", HttpStatus.OK);
     }
