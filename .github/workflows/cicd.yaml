@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - feat/cicd
+  pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
