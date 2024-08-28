@@ -9,13 +9,13 @@ public class TestDocumentController {
     @Autowired
     private TestDocumentService testDocumentService;
 
-    @GetMapping("/save")
+    @GetMapping("save")
     public String saveDocument(@RequestParam String message) {
         testDocumentService.saveTestDocument(message);
         return "Document saved!";
     }
 
-    @GetMapping("/find")
+    @GetMapping("find")
     public TestDocument findDocument(@RequestParam String id) {
         return testDocumentService.getTestDocument(id);
     }
