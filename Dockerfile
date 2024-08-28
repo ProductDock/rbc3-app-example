@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM eclipse-temurin:22
 
 COPY . /usr/src/elkdemo
 WORKDIR /usr/src/elkdemo

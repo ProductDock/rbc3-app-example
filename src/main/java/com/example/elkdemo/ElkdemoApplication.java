@@ -15,7 +15,6 @@ public class ElkdemoApplication {
 	public static void main(String[] args) {
 		LOG.info("STARTING THE APPLICATION");
 		SpringApplication.run(ElkdemoApplication.class, args);
-		LOG.info("APPLICATION FINISHED");
 	}
 
 }

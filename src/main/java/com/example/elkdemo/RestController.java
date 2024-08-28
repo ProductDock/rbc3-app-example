@@ -15,9 +15,9 @@ public class RestController {
 	private static Logger LOG = LoggerFactory
 			.getLogger(RestController.class);
 
-    @GetMapping("ping")
+    @GetMapping("health")
     public ResponseEntity<String> ping() {
-        return new ResponseEntity<>("pong", HttpStatus.OK);
+        return new ResponseEntity<>("Hello RBC 3!!", HttpStatus.OK);
     }
 
     @GetMapping("count")
