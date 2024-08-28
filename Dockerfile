@@ -1,4 +1,4 @@
-FROM eclipse-temurin:22
+FROM eclipse-temurin:21
 
 COPY . /usr/src/elkdemo
 WORKDIR /usr/src/elkdemo
