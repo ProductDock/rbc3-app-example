@@ -15,12 +15,12 @@ public class RestController {
 	private static Logger LOG = LoggerFactory
 			.getLogger(RestController.class);
 
-    @GetMapping("health")
+    @GetMapping("/health")
     public ResponseEntity<String> ping() {
-        return new ResponseEntity<>("Hello RBC 3!!", HttpStatus.OK);
+        return new ResponseEntity<>("Hello RBC 3!", HttpStatus.OK);
     }
 
-    @GetMapping("count")
+    @GetMapping("/count")
     public ResponseEntity<Void> count() {
         countAsync();
         return new ResponseEntity<>(HttpStatus.OK);
